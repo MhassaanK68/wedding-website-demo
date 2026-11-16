@@ -1,0 +1,1770 @@
+/* Project CSS loads local Google Fonts + original compiled site CSS. */
+@import url("../assets/fonts/google-fonts.css");
+@import url("../assets/index-D_iAgHnL.css");
+
+/* Override Google Fonts URLs to local copies for 1:1 offline parity */
+@font-face{
+  font-family:"Great Vibes";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url("../assets/fonts/RWmMoKWR9v4ksMfaWd_JN-XC.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Lato";
+  font-style:normal;
+  font-weight:300;
+  font-display:swap;
+  src:url("../assets/fonts/S6u9w4BMUTPHh7USew8.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Lato";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url("../assets/fonts/S6uyw4BMUTPHvxk.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Playfair Display";
+  font-style:italic;
+  font-weight:400;
+  font-display:swap;
+  src:url("../assets/fonts/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_qiTbtY.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Playfair Display";
+  font-style:italic;
+  font-weight:500;
+  font-display:swap;
+  src:url("../assets/fonts/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_pqTbtY.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Playfair Display";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url("../assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Playfair Display";
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url("../assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKd3vUDQ.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Playfair Display";
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url("../assets/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Cormorant Garamond";
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url("../assets/fonts/cormorant-garamond-500.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Cormorant Garamond";
+  font-style:italic;
+  font-weight:400;
+  font-display:swap;
+  src:url("../assets/fonts/cormorant-garamond-italic-400.ttf") format("truetype");
+}
+
+/* Site-wide textured background */
+html,
+body{
+  min-height:100%;
+  background-color:#F4E9D8;
+  background-image:url("../assets/paper-texture.png");
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:100% var(--visible-viewport-height, 100svh);
+  background-attachment:fixed;
+}
+
+/* The invitation reads as a sequence of full-screen pages. Native snapping is
+   the baseline; script-driven wheel and touch navigation adds one deliberate
+   page at a time across browsers. */
+html{
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  scroll-padding-top:0;
+}
+
+body{ touch-action:pan-y; }
+
+main > section.invite-hero,
+main > section.save-the-date,
+main > section.countdown-venue-section,
+main > section.details-section{
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  scroll-margin-top:0;
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+}
+
+#mute-toggle{
+  bottom:max(1.5rem, calc(env(safe-area-inset-bottom) + .75rem));
+}
+.music-toggle{
+  background:#3B2115;
+  color:#F4E9D8;
+  border:1px solid #9A7156;
+}
+.music-toggle:hover{ background:#52301E; }
+.music-toggle:focus-visible{ outline:2px solid #5A341A; outline-offset:3px; }
+.music-toggle [hidden]{ display:none!important; }
+
+/* Prevent page scrolling when Save-the-date is "locked" */
+body.scroll-locked{
+  overflow:hidden;
+  overscroll-behavior:none;
+  touch-action:none;
+}
+
+/* Opening envelope: it remains above the entire document until the guest opens it. */
+#opening-gate{
+  opacity:1;
+  visibility:visible;
+  transition:opacity 1400ms cubic-bezier(.22,.61,.36,1), visibility 0s linear 1400ms;
+}
+#opening-gate__button{
+  position:relative;
+  transition:transform 260ms ease;
+}
+#opening-gate__button:not(:disabled):hover,
+#opening-gate__button:not(:disabled):focus-visible{
+  transform:scale(1.012);
+}
+#opening-gate__button:focus-visible{
+  outline:3px solid rgba(166,120,120,.8);
+  outline-offset:-10px;
+}
+#opening-gate__image{
+  opacity:0;
+  transform:scale(1.02);
+  transition:opacity 280ms ease, transform 900ms cubic-bezier(.22,.61,.36,1);
+}
+#opening-gate.is-ready #opening-gate__image{
+  opacity:1;
+  transform:scale(1);
+}
+#opening-gate.is-opening{
+  opacity:0;
+  pointer-events:none;
+}
+#opening-gate.is-opening #opening-gate__image{
+  transform:scale(1.045);
+}
+
+@media (prefers-reduced-motion: reduce){
+  #opening-gate,
+  #opening-gate__button,
+  #opening-gate__image{ transition:none; }
+}
+
+/* A single bounded canvas, independent of per-particle CSS compositor layers. */
+.confetti-layer{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  z-index:9999;
+  pointer-events:none;
+}
+@media (prefers-reduced-motion: reduce){
+  .confetti-layer{ display:none; }
+}
+
+/* Full-height sections + dividers (mobile-safe viewport units). */
+main > section{
+  min-height:var(--visible-viewport-height, 100svh);
+  display:flex;
+  align-items:center;
+  position:relative;
+  background-image:url("../assets/paper-texture.png");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+}
+
+/* Let the hero keep its existing internal layout. */
+main > section.invite-hero{
+  display:block;
+}
+
+.invite-hero > .min-h-screen{
+  min-height:var(--visible-viewport-height, 100svh);
+}
+
+/* Keep the completed invitation sequence visible while later draft sections stay hidden. */
+main > section:not(.invite-hero):not(.save-the-date):not(.countdown-venue-section):not(.details-section){
+  display:none!important;
+}
+
+/* Default section spacing should fit within 1 viewport height. */
+.section-padding{
+  padding:clamp(3rem, 6vh, 4.5rem) 1.5rem;
+}
+
+@media (min-width: 768px){
+  .section-padding{
+    padding:clamp(4rem, 7vh, 6rem) 3rem;
+  }
+}
+
+/* Divider between consecutive sections */
+main > section + section::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:min(720px, 78vw);
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(166, 120, 120, .45), transparent);
+}
+main > section + section::after{
+  content:"♥";
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translate(-50%, -60%);
+  font-family:var(--font-script, "Great Vibes", cursive);
+  font-size:18px;
+  line-height:1;
+  color:rgba(166, 120, 120, .65);
+  background:transparent;
+  padding:0 .6rem;
+}
+
+/*
+  Remove section-level solid backgrounds so the texture shows through.
+  We scope this to layout containers so buttons/inputs using bg-* stay intact.
+*/
+main.bg-background,
+section.bg-background,
+section.bg-ivory,
+div.bg-ivory,
+footer.bg-primary{
+  background-color:transparent!important;
+}
+
+/* Disable the hero fullscreen video/poster background */
+main > section.relative.min-h-screen.overflow-hidden > video{
+  display:none!important;
+}
+
+/* Save-the-date scratch card */
+.std-card{
+  width:100%;
+  max-width:420px;
+  position:relative;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.std-content{
+  position:relative;
+  background-color: #FAF0E6;
+  z-index:1;
+  border-radius:14px;
+  /* Give the card vertical room, then center content within it */
+  min-height:clamp(460px, 70vh, 560px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:stretch;
+  padding:52px 26px;
+  box-shadow:0 18px 60px rgba(80, 55, 60, .18);
+  overflow:hidden;
+}
+.std-surface{
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65)),
+    url("../assets/paper-texture.png");
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  filter:saturate(.95);
+}
+.std-card{
+  isolation:isolate;
+}
+
+.std-title{
+  text-align:center;
+  font-size:clamp(44px, 10vw, 66px);
+  color:rgba(74, 58, 56, .88);
+  line-height:1.05;
+  margin:0;
+}
+.std-divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:14px auto 18px;
+  width:86%;
+  color:rgba(166, 120, 120, .55);
+}
+.std-divider > span:first-child,
+.std-divider > span:last-child{
+  height:1px;
+  background:rgba(166, 120, 120, .35);
+  flex:1;
+}
+.std-heart{ font-size:14px; opacity:.8; }
+.std-leaf{ font-size:16px; opacity:.7; transform:translateY(-1px); }
+.std-divider--bottom{ margin:18px auto 14px; }
+
+.std-scratch{
+  position:relative;
+  width:78px;
+  aspect-ratio:1 / 1;
+  border-radius:9999px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:auto;
+  border:2px solid rgba(191, 152, 152, .38);
+  box-shadow:
+    inset 0 0 0 6px rgba(245, 229, 225, .55),
+    0 10px 26px rgba(80, 55, 60, .10);
+  background:rgba(255, 255, 255, .35);
+}
+.std-date{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  max-width:100%;
+  margin-top:18px;
+  margin-bottom:6px;
+}
+
+.std-scratch__reveal{
+  font-family:var(--font-display);
+  font-weight:500;
+  color:rgba(60, 47, 45, .85);
+  font-size:30px;
+  letter-spacing:.02em;
+  opacity:0;
+  transition:opacity 160ms ease;
+}
+.std-scratch--mid .std-scratch__reveal{
+  font-size:26px;
+  letter-spacing:.08em;
+}
+.std-scratch.is-revealed .std-scratch__reveal{
+  opacity:1;
+}
+.std-scratch__canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  touch-action:none;
+  cursor:grab;
+}
+.std-scratch__canvas:active{ cursor:grabbing; }
+
+.std-hint{
+  width:100%;
+  text-align:center;
+  font-family:var(--font-body);
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(85, 70, 68, .65);
+  pointer-events:none;
+  margin:16px 0 0;
+}
+
+.std-footer{
+  text-align:center;
+  margin:0;
+  font-size:clamp(20px, 5.5vw, 28px);
+  color:rgba(74, 58, 56, .78);
+}
+.std-footer-heart{
+  text-align:center;
+  margin-top:8px;
+  color:rgba(166, 120, 120, .55);
+}
+
+.std-floral{
+  position:absolute;
+  width:180px;
+  height:180px;
+  opacity:.18;
+  pointer-events:none;
+  filter:contrast(.95) saturate(.9);
+}
+.std-floral--tl{ left:-34px; top:-30px; transform:rotate(180deg); }
+.std-floral--br{ right:-34px; bottom:-30px; }
+
+@media (min-width: 420px){
+  .std-scratch{ width:104px; }
+  .std-scratch__reveal{ font-size:34px; }
+  .std-scratch--mid .std-scratch__reveal{ font-size:28px; }
+}
+
+/* Save-the-date section: slightly less padding on small screens */
+.save-the-date.section-padding{
+  padding-left:1rem;
+  padding-right:1rem;
+}
+
+/* Invitation-style hero (matches attached design) */
+.invite-hero{
+  position:relative;
+  isolation:isolate;
+  min-height:var(--visible-viewport-height, 100svh)!important;
+}
+
+.section-scroll-cue{
+  position:absolute;
+  z-index:30;
+  top:calc(var(--visible-viewport-height, 100svh) - max(92px, calc(env(safe-area-inset-bottom) + 72px)));
+  left:50%;
+  bottom:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  color:rgb(90 52 26 / .9);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.22em;
+  line-height:1;
+  text-decoration:none;
+  text-transform:uppercase;
+  transform:translateX(-50%);
+  transition:color 180ms ease;
+}
+
+.section-scroll-cue svg{
+  width:24px;
+  height:24px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  animation:invite-scroll-cue 1.8s ease-in-out infinite;
+}
+
+.section-scroll-cue:hover,
+.section-scroll-cue:focus-visible{
+  color:#5A341A;
+}
+
+.section-scroll-cue:focus-visible{
+  outline:1px solid #A98C6D;
+  outline-offset:6px;
+}
+
+@keyframes invite-scroll-cue{
+  0%, 100%{ transform:translateY(0); opacity:.55; }
+  50%{ transform:translateY(5px); opacity:1; }
+}
+
+.section-scroll-cue--top svg{
+  animation-name:invite-scroll-cue-up;
+}
+
+@keyframes invite-scroll-cue-up{
+  0%, 100%{ transform:translateY(0); opacity:.65; }
+  50%{ transform:translateY(-5px); opacity:1; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .section-scroll-cue svg{ animation:none; }
+}
+
+/* Very short mobile viewports need the invitation artwork compacted so the
+   viewport-anchored cue remains a separate, readable control. */
+@media (max-width:480px) and (max-height:600px){
+  .invite-hero__card{
+    width:min(calc(92vw / .7), calc(560px / .7));
+    zoom:.7;
+  }
+
+  .save-the-date .std-card{
+    width:calc(100% / .7);
+    max-width:calc(420px / .7);
+    zoom:.7;
+  }
+
+  .countdown-venue-section .countdown-venue-logo{ margin-top:10px; }
+  .countdown-venue-section .countdown-venue-address{ margin-top:8px; }
+}
+
+@media (max-width:480px) and (min-height:601px) and (max-height:650px){
+  .save-the-date .std-card{
+    width:calc(100% / .95);
+    max-width:calc(420px / .95);
+    zoom:.95;
+  }
+}
+
+.invite-hero__card{
+  width:min(560px, 92vw);
+  text-align:center;
+  padding:clamp(54px, 10vw, 84px) clamp(18px, 4vw, 44px);
+  color:#6f6256;
+}
+
+.invite-hero__corner{ display:none; }
+
+.invite-hero__ornament-top{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:22px;
+  color:#c7a4a4;
+}
+
+.invite-hero__ornament-svg{
+  width:min(320px, 74vw);
+  height:auto;
+}
+
+.invite-hero__kicker{
+  margin:0 0 14px;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:500;
+  font-size:clamp(13px, 2.2vw, 15px);
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:#8b7b6d;
+}
+
+.invite-hero__host{
+  margin:0;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:500;
+  font-size:clamp(32px, 5.6vw, 46px);
+  letter-spacing:.01em;
+  color:#7a6a5c;
+}
+
+.invite-hero__request{
+  margin:22px 0 6px;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:500;
+  font-size:clamp(12px, 2.1vw, 14px);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:#8b7b6d;
+}
+
+.invite-hero__sub{
+  margin:0;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:500;
+  font-style:italic;
+  font-size:clamp(13px, 2.3vw, 16px);
+  letter-spacing:.06em;
+  color:#b38f8f;
+}
+
+.invite-hero__flourish{
+  margin:18px 0 12px;
+  font-size:22px;
+  color:#c7a4a4;
+}
+
+.invite-hero__names{
+  margin:10px 0 0;
+  line-height:1.08;
+}
+
+.invite-hero__name{
+  display:block;
+  font-family:var(--font-script, "Great Vibes", "Brush Script MT", cursive);
+  font-weight:400;
+  font-size:clamp(54px, 9.4vw, 92px);
+  color:#9b8f7c;
+  white-space:nowrap;
+}
+
+.invite-hero__with{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:10px 0 12px;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(16px, 2.8vw, 20px);
+  letter-spacing:.08em;
+  color:#b38f8f;
+}
+
+.invite-hero__with::before,
+.invite-hero__with::after{
+  content:"";
+  width:44px;
+  height:1px;
+  background:#d6bcbc;
+}
+
+.invite-hero__ornament{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:18px;
+  color:rgba(166, 120, 120, .55);
+}
+
+.invite-hero__twig{
+  width:64px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(166, 120, 120, .45), transparent);
+}
+
+.invite-hero__heart{
+  font-size:12px;
+  transform:translateY(-1px);
+}
+
+.invite-hero__heart svg,
+.std-heart svg,
+.std-footer-heart svg{
+  width:14px;
+  height:14px;
+  display:block;
+}
+
+.std-footer-heart svg{
+  margin:0 auto;
+}
+
+.invite-hero__heart--muted{
+  opacity:.85;
+  font-size:11px;
+}
+
+.invite-hero__rule{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  width:min(420px, 86%);
+  margin:16px auto 0;
+  color:#c7a4a4;
+}
+
+.invite-hero__rule > span:first-child,
+.invite-hero__rule > span:last-child{
+  height:1px;
+  background:#d6bcbc;
+  flex:1;
+}
+
+.invite-hero__rule--bottom{
+  margin-top:18px;
+}
+
+.invite-hero__corner{
+  position:absolute;
+  width:min(340px, 48vw);
+  aspect-ratio:1 / 1;
+  pointer-events:none;
+  opacity:.35;
+  filter:saturate(.9) contrast(.95);
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position:center;
+  /* inline SVG floral corner so we don't need extra image assets */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23caa3a3' stroke-opacity='.55' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M34 210c42-52 66-86 88-150'/%3E%3Cpath d='M94 64c-10 20-26 42-52 60'/%3E%3Cpath d='M126 78c16 18 34 28 60 30'/%3E%3Cpath d='M84 118c20 10 34 22 46 44'/%3E%3Cpath d='M148 110c-8 22-10 44-2 70'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='196' cy='62' r='22' fill='%23e3b2b2' fill-opacity='.20'/%3E%3Ccircle cx='196' cy='62' r='12' fill='%23caa3a3' fill-opacity='.25'/%3E%3Ccircle cx='68' cy='206' r='28' fill='%23e3b2b2' fill-opacity='.16'/%3E%3Ccircle cx='68' cy='206' r='14' fill='%23caa3a3' fill-opacity='.22'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.invite-hero__corner--tr{
+  top:-36px;
+  right:-36px;
+}
+
+.invite-hero__corner--bl{
+  bottom:-36px;
+  left:-36px;
+  transform:rotate(180deg);
+}
+
+@media (max-width: 420px){
+  .invite-hero__card{ padding-top:72px; padding-bottom:72px; }
+  .invite-hero__twig{ width:52px; }
+}
+
+/* Countdown (match reference design) */
+.countdown{
+  color:rgba(66, 54, 52, .92);
+}
+
+
+.countdown__inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.countdown__title{
+  margin:0;
+  font-family:var(--font-script, "Great Vibes", "Brush Script MT", cursive);
+  font-weight:400;
+  font-size:clamp(46px, 8vw, 64px);
+  line-height:1.05;
+  color:rgba(126, 84, 84, .92);
+}
+
+.countdown__grid{
+  width:min(680px, 92vw);
+  display:grid;
+  grid-template-columns:repeat(4, auto);
+  gap:clamp(10px, 2.4vw, 18px);
+  align-items:start;
+  justify-items:center;
+  justify-content:center;
+}
+
+.countdown__unit{
+  width:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.countdown__box{
+  width:var(--countdown-box, clamp(66px, 13vw, 88px));
+  height:var(--countdown-box, clamp(66px, 13vw, 88px));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  border:1.5px solid rgba(166, 120, 120, .75);
+  background:rgba(255, 255, 255, .18);
+  box-shadow:0 10px 26px rgba(80, 55, 60, .06);
+}
+
+.countdown__value{
+  display:block;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(26px, 6.6vw, 40px);
+  letter-spacing:.02em;
+  color:rgba(66, 54, 52, .90);
+  font-variant-numeric:tabular-nums;
+}
+
+.countdown__label{
+  display:block;
+  font-family:var(--font-body, "Lato", system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
+  font-weight:400;
+  font-size:11px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:rgba(126, 84, 84, .92);
+}
+
+.countdown__subtitle{
+  margin:4px 0 0;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:500;
+  font-size:14px;
+  letter-spacing:.08em;
+  font-style:italic;
+  text-transform:none;
+  color:rgba(126, 84, 84, .92);
+}
+
+.countdown-venue{
+  width:100%;
+  max-width:44rem;
+  box-sizing:border-box;
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  color:rgba(66, 54, 52, .92);
+}
+
+.countdown-venue__ornament,
+.countdown-venue__rule,
+.countdown-venue__divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  color:rgba(166, 120, 120, .55);
+}
+
+.countdown-venue__line{
+  width:clamp(44px, 8vw, 72px);
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(166, 120, 120, .45), transparent);
+}
+
+.countdown-venue__heart{
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-size:12px;
+  opacity:.85;
+}
+
+.countdown-venue__twig{
+  font-size:14px;
+  opacity:.7;
+  transform:translateY(-1px);
+}
+
+.countdown-venue__kicker{
+  margin:0;
+  font-family:var(--font-body, "Lato", system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
+  font-size:11px;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:rgba(76, 61, 59, .78);
+  text-align:center;
+  max-width:40ch;
+}
+
+.countdown-venue__figure{
+  width:100%;
+  margin:4px 0 0;
+}
+
+.countdown-venue__image{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:18px;
+  box-shadow:0 18px 60px rgba(80, 55, 60, .14);
+  filter:saturate(.95) contrast(.98);
+  -webkit-mask-image:radial-gradient(ellipse at center, #000 62%, transparent 86%);
+  mask-image:radial-gradient(ellipse at center, #000 62%, transparent 86%);
+}
+
+.countdown-venue__name{
+  margin:0;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:500;
+  font-size:clamp(26px, 4.4vw, 38px);
+  letter-spacing:.02em;
+  color:rgba(66, 54, 52, .92);
+}
+
+.countdown-venue__address{
+  margin:0;
+  font-family:var(--font-display, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight:400;
+  font-size:15px;
+  line-height:1.55;
+  letter-spacing:.06em;
+  color:rgba(76, 61, 59, .75);
+}
+
+@media (max-width: 420px){
+  .countdown{
+    --countdown-box:64px;
+  }
+  .countdown__label{ font-size:10px; letter-spacing:.22em; }
+  .countdown-venue__line{ width:42px; }
+  .countdown-venue__kicker{ font-size:10px; letter-spacing:.28em; }
+}
+
+/* Primary display text: a single ink color ties the invitation together. */
+main h1,
+main h2,
+main h3,
+.invite-hero__name,
+.countdown__title,
+.countdown-venue__name,
+#gift-toggle .font-display{
+  color:#130400;
+}
+
+/* Hero invitation refinement: keep its original composition, with a quieter shared ink. */
+.invite-hero__card,
+.invite-hero__kicker,
+.invite-hero__host,
+.invite-hero__request,
+.invite-hero__sub,
+.invite-hero__name,
+.invite-hero__with{
+  color:#5A341A;
+}
+.invite-hero__kicker,
+.invite-hero__host,
+.invite-hero__request,
+.invite-hero__sub,
+.invite-hero__with{
+  font-family:"Cormorant Garamond", "Times New Roman", serif;
+}
+.invite-hero__kicker{
+  font-size:clamp(15px, 2.5vw, 17px);
+  letter-spacing:.25em;
+  font-weight:500;
+}
+.invite-hero__host{
+  font-size:clamp(32px, 5vw, 36px);
+  font-weight:500;
+}
+.invite-hero__request{
+  font-size:clamp(15px, 2.5vw, 17px);
+  letter-spacing:.22em;
+  font-weight:500;
+}
+.invite-hero__sub{
+  font-size:clamp(16px, 3vw, 18px);
+  font-weight:400;
+}
+.invite-hero__name{
+  font-family:"Great Vibes", "Brush Script MT", cursive;
+  font-weight:400;
+}
+.invite-hero__name--bride{ font-size:clamp(58px, 18.67vw, 70px); }
+.invite-hero__name--groom{ font-size:clamp(55px, 17.6vw, 66px); }
+.invite-hero__with{
+  font-size:clamp(18px, 3vw, 20px);
+  font-style:italic;
+  font-weight:400;
+}
+.invite-hero__ornament-top,
+.invite-hero__flourish,
+.invite-hero__rule{
+  color:rgb(90 52 26 / .65);
+}
+.invite-hero__with::before,
+.invite-hero__with::after,
+.invite-hero__rule > span:first-child,
+.invite-hero__rule > span:last-child{
+  background:rgb(90 52 26 / .65);
+}
+
+/* First invitation page: a restrained, vertically paced interpretation of
+   the supplied invitation artwork. */
+.invite-hero__card{
+  width:min(640px, 94vw);
+  padding:clamp(42px, 7vh, 68px) clamp(14px, 4vw, 42px);
+  color:#5A341A;
+}
+
+.invite-hero__bismillah{
+  margin:0;
+  color:#5A341A;
+  font-family:"Noto Naskh Arabic", "Amiri", "Times New Roman", serif;
+  font-size:clamp(34px, 10vw, 60px);
+  font-weight:500;
+  line-height:1.25;
+  text-align:center;
+}
+
+.invite-hero__sparkle{
+  margin:clamp(18px, 3vh, 28px) 0 0;
+  color:#5A341A;
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:26px;
+  font-weight:500;
+  line-height:1;
+}
+
+.invite-hero__parents{
+  margin:clamp(24px, 4vh, 38px) 0 0;
+  color:#5A341A;
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(16px, 4.3vw, 22px);
+  font-weight:500;
+  letter-spacing:.22em;
+  line-height:1.7;
+  text-transform:uppercase;
+}
+
+.invite-hero__parents span{ display:block; }
+
+.invite-hero__request{
+  margin:clamp(36px, 6vh, 58px) 0 0;
+  font-size:clamp(15px, 4vw, 20px);
+  letter-spacing:.24em;
+  line-height:1.35;
+}
+
+.invite-hero__sub{
+  margin:clamp(10px, 1.7vh, 16px) 0 0;
+  color:#5A341A;
+  font-size:clamp(14px, 3.7vw, 19px);
+  font-style:normal;
+  letter-spacing:.2em;
+  line-height:1.45;
+  text-transform:uppercase;
+}
+
+.invite-hero__flourish{
+  margin:clamp(28px, 4.8vh, 44px) 0 clamp(12px, 2vh, 20px);
+  color:#5A341A;
+  font-size:24px;
+  line-height:1;
+}
+
+.invite-hero__names{ margin:0; }
+
+.invite-hero__name--bride{ font-size:clamp(52px, 14vw, 78px); }
+.invite-hero__name--groom{ font-size:clamp(48px, 13vw, 74px); }
+
+.invite-hero__with{
+  margin:clamp(10px, 1.7vh, 16px) 0;
+  color:#5A341A;
+  font-size:clamp(16px, 4.2vw, 21px);
+  font-style:normal;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.invite-hero__with::before,
+.invite-hero__with::after{
+  width:clamp(54px, 16vw, 92px);
+  background:rgb(90 52 26 / .65);
+}
+
+.invite-hero__sparkle--bottom{
+  margin:clamp(28px, 5vh, 48px) 0 0;
+}
+
+/* Keep the portrait invitation composition clear of the persistent cue on
+   landscape screens and exceptionally short phones. */
+@media (min-width:768px) and (max-height:950px){
+  .invite-hero__card{ zoom:.82; }
+}
+
+@media (max-width:480px) and (max-height:600px){
+  .invite-hero__card{ zoom:.65; }
+}
+
+@media (max-width: 767px){
+  .invite-hero__name--bride,
+  .invite-hero__name--groom{
+    font-size:clamp(42px, 12vw, 52px);
+  }
+}
+
+/* Save the Date: carry the invitation's chocolate ink and warm paper palette through the scratch card. */
+.std-content{
+  background-color:#F8EFE3;
+  border-radius:30px;
+}
+.std-surface{ border-radius:30px; }
+.std-title{
+  font-family:"Great Vibes", "Brush Script MT", cursive;
+  font-size:clamp(52px, 15.5vw, 60px);
+  color:#5A341A;
+}
+.std-hint{
+  font-family:"Cormorant Garamond", "Times New Roman", serif;
+  font-size:clamp(17px, 4.5vw, 19px);
+  font-weight:500;
+  letter-spacing:.20em;
+  color:#5A341A;
+}
+.std-footer{
+  font-family:"Great Vibes", "Brush Script MT", cursive;
+  font-size:clamp(28px, 7.5vw, 32px);
+  color:#5A341A;
+}
+.std-scratch{
+  border:1.5px solid #A98C6D;
+  background:#F8EFE3;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .75),
+    inset 0 0 0 5px rgb(248 239 227 / .72),
+    0 12px 24px rgb(90 52 26 / .13),
+    0 2px 5px rgb(90 52 26 / .08);
+}
+.std-scratch__reveal{ color:#5A341A; }
+.std-divider{
+  color:#5A341A;
+}
+.std-divider > span:first-child,
+.std-divider > span:last-child{
+  background:#A98C6D;
+}
+.std-footer-heart{ color:#5A341A; }
+
+/* Phone-sized cards need a little more usable line width without changing the desktop composition. */
+@media (max-width: 420px){
+  .std-content{
+    min-height:520px;
+    padding:46px 18px;
+  }
+  .std-hint{
+    font-size:clamp(15px, 4vw, 17px);
+    letter-spacing:.18em;
+  }
+}
+
+/* Remove only the top hero ornament and the divider between major sections. */
+main > section + section::before,
+main > section + section::after,
+.invite-hero__ornament-top{
+  display:none;
+}
+
+/* Countdown & venue — a self-contained 9:16 invitation page. */
+.countdown-venue-section{
+  --cv-ink:#5A341A;
+  --cv-line:#A98C6D;
+  width:100%;
+  min-height:var(--visible-viewport-height, 100svh);
+  padding:0;
+  justify-content:center;
+  overflow:hidden;
+  background:transparent;
+}
+
+.countdown-venue-canvas{
+  position:relative;
+  isolation:isolate;
+  width:min(100%, calc(var(--visible-viewport-height, 100svh) * 9 / 16));
+  aspect-ratio:9 / 16;
+  flex:0 0 auto;
+  overflow:hidden;
+  color:var(--cv-ink);
+  background:transparent;
+}
+
+.countdown-venue-content{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:2% 10% 5%;
+  text-align:center;
+}
+
+.countdown-venue-stack{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transform-origin:top center;
+}
+
+.countdown-venue-header{
+  width:100%;
+}
+
+.countdown-venue-title{
+  margin:0;
+  color:var(--cv-ink)!important;
+  font-family:"Great Vibes", "Brush Script MT", cursive;
+  font-size:clamp(58px, 15.6vw, 64px);
+  font-weight:400;
+  line-height:.95;
+}
+
+.countdown-venue-divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--cv-ink);
+}
+
+.countdown-venue-divider span{
+  height:1px;
+  background:var(--cv-line);
+}
+
+.countdown-venue-divider b{
+  display:block;
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:14px;
+  font-weight:500;
+  line-height:1;
+  transform:translateY(-1px);
+}
+
+.countdown-venue-divider--wide{
+  gap:10px;
+  width:min(270px, 76%);
+  margin:12px auto 0;
+}
+
+.countdown-venue-divider--wide span{
+  width:100%;
+}
+
+.countdown-venue-divider--small{
+  gap:8px;
+  width:116px;
+  margin:12px auto 0;
+}
+
+.countdown-venue-divider--small span{
+  flex:1;
+}
+
+.countdown-venue-timer{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  margin-top:22px;
+}
+
+.countdown-venue-unit{
+  position:relative;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.countdown-venue-unit + .countdown-venue-unit::before{
+  content:"";
+  position:absolute;
+  top:4px;
+  bottom:4px;
+  left:0;
+  width:1px;
+  background:var(--cv-line);
+}
+
+.countdown-venue-unit strong{
+  color:var(--cv-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(42px, 11.4vw, 46px);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+  line-height:.9;
+}
+
+.countdown-venue-unit span{
+  margin-top:5px;
+  color:var(--cv-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(13px, 3.5vw, 15px);
+  font-weight:500;
+  letter-spacing:.18em;
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.countdown-venue-until{
+  margin:20px 0 0;
+  color:var(--cv-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(20px, 5.6vw, 22px);
+  font-style:italic;
+  font-weight:400;
+  line-height:1.1;
+}
+
+.countdown-venue-intro{
+  margin:24px 0 0;
+  color:var(--cv-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(12px, 3.1vw, 15px);
+  font-weight:500;
+  letter-spacing:.14em;
+  line-height:1.1;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* One quiet divider is enough between the timer and venue; the logo anchors the venue block. */
+.countdown-venue-intro + .countdown-venue-divider{
+  display:none;
+}
+
+.countdown-venue-logo{
+  display:block;
+  width:clamp(210px, 59vw, 248px);
+  height:auto;
+  aspect-ratio:2 / 1;
+  margin:25px auto 0;
+}
+
+.countdown-venue-address{
+  margin:18px 0 0;
+  color:var(--cv-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(16px, 4.4vw, 18px);
+  font-style:normal;
+  font-weight:500;
+  letter-spacing:.04em;
+  line-height:1.35;
+}
+
+.countdown-venue-location{
+  min-width:min(250px, 90%);
+  min-height:50px;
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:30px;
+  padding:12px 24px;
+  border:1px solid var(--cv-line);
+  outline:1px solid rgb(169 140 109 / .7);
+  outline-offset:4px;
+  color:var(--cv-ink);
+  background:rgb(244 233 216 / .48);
+  color:var(--cv-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(14px, 3.8vw, 16px);
+  font-weight:500;
+  letter-spacing:.18em;
+  line-height:1.1;
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.countdown-venue-location svg{
+  width:18px;
+  height:18px;
+  flex:0 0 auto;
+  stroke:currentColor;
+  stroke-width:1.5;
+}
+
+.countdown-venue-location:hover,
+.countdown-venue-location:focus-visible{
+  color:#F4E9D8;
+  background:var(--cv-ink);
+  transform:translateY(-2px);
+}
+
+.countdown-venue-location:focus-visible{
+  outline:2px solid var(--cv-ink);
+  outline-offset:4px;
+}
+
+@media (max-width:360px){
+  .countdown-venue-content{ padding:0 9% 4%; }
+  .countdown-venue-title{ font-size:50px; }
+  .countdown-venue-divider--wide{ margin-top:8px; }
+  .countdown-venue-timer{ margin-top:14px; }
+  .countdown-venue-unit strong{ font-size:38px; }
+  .countdown-venue-unit span{ font-size:11px; }
+  .countdown-venue-until{ margin-top:13px; font-size:19px; }
+  .countdown-venue-divider--small{ margin-top:8px; }
+  .countdown-venue-intro{ margin-top:15px; font-size:11px; letter-spacing:.12em; }
+  .countdown-venue-logo{ width:205px; margin-top:16px; }
+  .countdown-venue-address{ margin-top:12px; font-size:14px; }
+  .countdown-venue-location{
+    min-width:220px;
+    min-height:44px;
+    margin-top:18px;
+    padding:10px 18px;
+    font-size:12px;
+  }
+}
+
+@media (min-width:700px){
+  .countdown-venue-canvas{
+    box-shadow:0 22px 70px rgb(90 52 26 / .08);
+  }
+}
+
+@media (max-height:600px){
+  .countdown-venue-stack{ transform:scale(.88); }
+}
+
+@media (min-height:601px) and (max-height:700px){
+  .countdown-venue-stack{ transform:scale(.9); }
+}
+
+@media (min-height:701px) and (max-height:800px){
+  .countdown-venue-stack{ transform:scale(.96); }
+}
+
+/* Final event-details invitation page. */
+.details-section{
+  --details-ink:#5A341A;
+  --details-line:#A98C6D;
+  width:100%;
+  height:var(--visible-viewport-height, 100svh);
+  min-height:var(--visible-viewport-height, 100svh);
+  padding:0;
+  justify-content:center;
+  overflow:hidden;
+  background:transparent;
+  container-name:details-section;
+  container-type:size;
+}
+
+.details-canvas{
+  position:relative;
+  isolation:isolate;
+  width:min(100%, calc(var(--visible-viewport-height, 100svh) * 9 / 16));
+  aspect-ratio:9 / 16;
+  flex:0 0 auto;
+  overflow:hidden;
+  color:var(--details-ink);
+  background:transparent;
+}
+
+.details-content{
+  position:absolute;
+  inset:0;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:5% 9% 10%;
+  text-align:center;
+}
+
+.details-stack{
+  --details-divider-space:16px;
+  --details-secondary-gap:6px;
+  --details-closing-gap:8px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transform-origin:center;
+}
+
+.details-title{
+  margin:0;
+  color:var(--details-ink)!important;
+  font-family:"Great Vibes", "Brush Script MT", cursive;
+  font-size:clamp(56px, 15vw, 64px);
+  font-weight:400;
+  line-height:.95;
+}
+
+.details-divider{
+  width:min(290px, 84%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:var(--details-divider-space) auto;
+  color:var(--details-ink);
+}
+
+.details-divider span{
+  height:1px;
+  flex:1;
+  background:var(--details-line);
+}
+
+.details-divider b{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:13px;
+  font-weight:500;
+  line-height:1;
+}
+
+.details-item p{
+  margin:0;
+  color:var(--details-ink);
+  font-family:"Cormorant Garamond", Georgia, serif;
+}
+
+.details-label{
+  font-size:clamp(14px, 3.8vw, 16px);
+  font-weight:500;
+  letter-spacing:.28em;
+  line-height:1.15;
+  text-transform:uppercase;
+}
+
+.details-time{
+  margin-top:var(--details-secondary-gap)!important;
+  font-size:clamp(30px, 8.2vw, 36px);
+  font-weight:500;
+  letter-spacing:.08em;
+  line-height:1;
+}
+
+.details-note{
+  margin-top:var(--details-secondary-gap)!important;
+  font-size:clamp(20px, 5.6vw, 24px);
+  font-style:italic;
+  font-weight:400;
+  line-height:1.1;
+}
+
+.details-emphasis{
+  margin-top:var(--details-secondary-gap)!important;
+  font-size:clamp(17px, 4.6vw, 20px);
+  font-weight:500;
+  letter-spacing:.16em;
+  line-height:1.1;
+  text-transform:uppercase;
+}
+
+.details-closing{
+  margin:var(--details-closing-gap) 0 0;
+  color:var(--details-ink);
+  font-family:"Great Vibes", "Brush Script MT", cursive;
+  font-size:clamp(28px, 7.6vw, 34px);
+  font-weight:400;
+  line-height:1.05;
+  white-space:nowrap;
+}
+
+@media (max-height:700px){
+  .details-stack{
+    --details-divider-space:12px;
+    --details-secondary-gap:4px;
+    --details-closing-gap:4px;
+    transform:scale(.76);
+  }
+}
+
+@media (min-height:701px) and (max-height:800px){
+  .details-stack{
+    --details-divider-space:12px;
+    --details-secondary-gap:4px;
+    --details-closing-gap:4px;
+    transform:scale(.87);
+  }
+}
+
+@media (max-height:600px){
+  .details-stack{ transform:scale(.7); }
+}
+
+@container details-section (max-height:600px){
+  .details-stack{
+    --details-divider-space:12px;
+    --details-secondary-gap:4px;
+    --details-closing-gap:4px;
+    transform:scale(.7);
+  }
+}
+
+@container details-section (min-height:601px) and (max-height:700px){
+  .details-stack{
+    --details-divider-space:12px;
+    --details-secondary-gap:4px;
+    --details-closing-gap:4px;
+    transform:scale(.76);
+  }
+}
+
+@container details-section (min-height:701px) and (max-height:800px){
+  .details-stack{
+    --details-divider-space:12px;
+    --details-secondary-gap:4px;
+    --details-closing-gap:4px;
+    transform:scale(.87);
+  }
+}
+
+@container details-section (min-height:801px){
+  .details-stack{ transform:none; }
+}
+
+@media (min-width:700px){
+  .details-canvas{ box-shadow:0 22px 70px rgb(90 52 26 / .08); }
+}
+
+/* Every completed page owns a plain paper base so iOS Safari never depends
+   on a fixed body background while scrolling. The floral artwork sits in a
+   separate masked layer, allowing adjacent pages to dissolve into one another. */
+main > section.invite-hero,
+main > section.save-the-date,
+main > section.countdown-venue-section,
+main > section.details-section{
+  isolation:isolate;
+  background-color:#F4E9D8;
+  background-image:url("../assets/paper-texture.png");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+}
+
+main > section.invite-hero::before,
+main > section.save-the-date::before,
+main > section.countdown-venue-section::before,
+main > section.details-section::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  display:block;
+  width:auto;
+  height:auto;
+  padding:0;
+  pointer-events:none;
+  background-color:transparent;
+  background-image:url("../assets/texture-corners.png");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  transform:none;
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-image:linear-gradient(to bottom, transparent 0%, #000 9%, #000 91%, transparent 100%);
+}
+
+main > section.invite-hero::before{
+  -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 91%, transparent 100%);
+  mask-image:linear-gradient(to bottom, #000 0%, #000 91%, transparent 100%);
+}
+
+main > section.details-section::before{
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 9%, #000 100%);
+  mask-image:linear-gradient(to bottom, transparent 0%, #000 9%, #000 100%);
+}
+
+main > section.save-the-date::before,
+main > section.details-section::before{
+  transform:scaleX(-1);
+}
+
+main > section.invite-hero > :not(.section-scroll-cue),
+main > section.save-the-date > :not(.section-scroll-cue),
+main > section.countdown-venue-section > :not(.section-scroll-cue),
+main > section.details-section > :not(.section-scroll-cue){
+  position:relative;
+  z-index:1;
+}
+
+/* The final page has its own floral frame and watercolor wash, matching the
+   supplied Details artwork without stretching its portrait proportions. */
+main > section.details-section::before{ display:block; }
+.details-section .details-canvas{
+  width:min(100%, calc(var(--visible-viewport-height, 100svh) * 734 / 1600));
+  height:var(--visible-viewport-height, 100svh);
+  aspect-ratio:734 / 1600;
+  box-shadow:none;
+}
+.details-section .details-content{ padding:4% 8% 13%; }
+.details-section .details-stack{
+  --details-divider-space:clamp(12px, 2.1cqh, 20px);
+  --details-secondary-gap:6px;
+  --details-closing-gap:14px;
+  transform:scale(.82);
+}
+.details-section .details-title{ font-size:clamp(58px, 15cqw, 82px); -webkit-text-stroke:.5px currentColor; }
+.details-section .details-divider{ width:min(250px, 68%); color:#B89870; }
+.details-section .details-divider span:first-child{ background:linear-gradient(to right, transparent, #B89870 75%); }
+.details-section .details-divider span:last-child{ background:linear-gradient(to left, transparent, #B89870 75%); }
+.details-section .details-divider b{ font-size:17px; }
+.details-section .details-label{ font-size:clamp(14px, 3.8cqw, 18px); font-weight:600; letter-spacing:.25em; }
+.details-section .details-time{ font-size:clamp(30px, 8.2cqw, 42px); font-weight:700; }
+.details-section .details-note{ font-size:clamp(17px, 5cqw, 24px); font-weight:500; line-height:1.25; -webkit-text-stroke:.15px currentColor; }
+.details-section .details-closing{ font-size:clamp(28px, 8cqw, 40px); -webkit-text-stroke:.2px currentColor; }
+.details-item--attire{ isolation:isolate; }
+.details-item--attire .details-label{ margin-bottom:12px; }
+.details-item--attire .details-note{
+  position:relative;
+  isolation:isolate;
+}
+.details-item--attire .details-note::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:50%;
+  top:50%;
+  width:148%;
+  height:150%;
+  transform:translate(-50%,-50%);
+  background:url("../assets/attire-watercolor.png") center / 100% 100% no-repeat;
+  opacity:.42;
+  pointer-events:none;
+}
+@container details-section (max-height:800px){
+  .details-section .details-stack{ --details-divider-space:6px; transform:scale(.82); }
+}
+@container details-section (max-height:700px){
+  .details-section .details-stack{ --details-divider-space:5px; transform:scale(.73); }
+}
+@container details-section (max-height:600px){
+  .details-section .details-stack{ --details-divider-space:3px; transform:scale(.67); }
+}
+.details-section .section-scroll-cue--top{
+  color:#5A341A;
+  text-shadow:0 1px 4px #F4E9D8;
+}
+
+/* Invitation copy is live HTML; only the ornate Arabic calligraphy is an image. */
+.invite-flow{
+  position:relative;
+  width:min(100%, calc(var(--visible-viewport-height, 100svh) * 734 / 1600));
+  height:var(--visible-viewport-height, 100svh);
+  margin:auto;
+  text-align:center;
+  color:#5A341A;
+  container-type:size;
+}
+.invite-flow__blessing{ position:absolute; top:16%; left:18%; width:64%; }
+.invite-flow__blessing img{ display:block; width:100%; height:auto; }
+.invite-flow__sparkle{ position:absolute; left:0; width:100%; font:500 5cqw/1 "Cormorant Garamond",serif; }
+.invite-flow__sparkle--first{ top:25%; }
+.invite-flow__sparkle--last{ top:70%; }
+.invite-flow__parents,
+.invite-flow__request{ position:absolute; left:4%; width:92%; margin:0; font-family:"Cormorant Garamond",Georgia,serif; font-weight:500; text-transform:uppercase; }
+.invite-flow__parents{ top:29%; font-size:4.5cqw; font-weight:600; letter-spacing:.2em; line-height:1.55; }
+.invite-flow__request{ top:38%; font-size:4.5cqw; letter-spacing:.055em; line-height:1.6; }
+.invite-flow__request span{ white-space:nowrap; }
+.invite-flow__names{ position:absolute; top:50%; left:0; width:100%; margin:0; font:400 10.5cqw/1.06 "Great Vibes",cursive; }
+.invite-flow__names > span{ display:block; white-space:nowrap; }
+.invite-flow__names .invite-flow__with{ display:flex; align-items:center; justify-content:center; gap:4cqw; margin:2.5cqh 0; font:500 4cqw/1 "Cormorant Garamond",Georgia,serif; text-transform:uppercase; letter-spacing:.2em; }
+.invite-flow__with::before,
+.invite-flow__with::after{ content:""; width:18%; height:1px; background:#A98C6D; }
+.invite-hero .invite-flow__scroll{ top:80%; }
+
+/* Distribute the actual content through the page's available height. Safari's
+   changing toolbar no longer causes a second scale transform on the stack. */
+.details-section .details-content{ inset:6% 0 15%; padding:0 8%; display:block; }
+.details-section .details-stack{ height:100%; transform:none; justify-content:space-between; }
+.details-section .details-divider{ margin:0 auto; }
+@container details-section (max-height:800px){
+  .details-section .details-title{ font-size:52px; }
+  .details-section .details-divider b{ font-size:10px; }
+  .details-section .details-label{ font-size:13px; }
+  .details-section .details-time{ font-size:27px; }
+  .details-section .details-note{ font-size:15px; }
+  .details-section .details-closing{ font-size:7cqw; }
+}
+@container details-section (max-height:600px){
+  .details-section .details-title{ font-size:48px; }
+  .details-section .details-label{ font-size:12px; }
+  .details-section .details-time{ font-size:25px; }
+  .details-section .details-note{ font-size:14px; }
+  .details-section .details-closing{ font-size:6.7cqw; }
+}
+@container details-section (max-height:800px){
+  .details-section .section-scroll-cue--top{ top:calc(var(--visible-viewport-height, 100svh) - 75px); }
+}
+
+/* A lighter Save the Date card with less visual weight around the scratch area. */
+.std-content > .std-divider:not(.std-divider--bottom){ display:none; }
+.std-title{ font-size:clamp(44px, 12vw, 52px); }
+.std-hint{ font-size:clamp(15px, 3.8vw, 17px); letter-spacing:.17em; margin-top:12px; }
+.std-footer{ font-size:clamp(24px, 6.5vw, 28px); }
+.std-content{ min-height:clamp(430px, 64vh, 510px); padding:42px 24px; }
+@media (max-width:420px){
+  .std-content{ min-height:450px; padding:40px 18px; }
+  .std-hint{ font-size:clamp(14px, 3.6vw, 16px); }
+}

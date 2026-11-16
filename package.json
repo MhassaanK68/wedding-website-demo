@@ -1,0 +1,17 @@
+{
+  "name": "wedding-website-demo",
+  "version": "1.0.0",
+  "description": "Client demo of a static wedding invitation website",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MhassaanK68/wedding-website-demo.git"
+  },
+  "keywords": ["wedding", "demo"],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/MhassaanK68/wedding-website-demo#readme"
+}
